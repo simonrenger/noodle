@@ -1,0 +1,552 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Noodle Visual Scripting Language</title>
+                <meta name="robots" content="noindex" />
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="favicon.svg">
+                        <link rel="shortcut icon" href="favicon.png">
+                <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+                <link rel="stylesheet" href="css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="article/general_design_overview.html"><strong aria-hidden="true">1.1.</strong> General Design Overview</a></li><li class="chapter-item "><a href="article/performance.html"><strong aria-hidden="true">1.2.</strong> Performance</a></li><li class="chapter-item "><a href="article/mechanical_aspects.html"><strong aria-hidden="true">1.3.</strong> Mechanical aspects of embedding software</a></li><li class="chapter-item "><a href="article/license_documentation.html"><strong aria-hidden="true">1.4.</strong> License &amp; Documentation</a></li><li class="chapter-item "><a href="article/workflow_tools.html"><strong aria-hidden="true">1.5.</strong> Workflow &amp; Tools</a></li><li class="chapter-item "><a href="article/protocol.html"><strong aria-hidden="true">1.6.</strong> Protocol</a></li><li class="chapter-item "><a href="article/references.html"><strong aria-hidden="true">1.7.</strong> References</a></li></ol></li><li class="chapter-item "><a href="lang/index.html"><strong aria-hidden="true">2.</strong> Language Specification</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="lang/protocol.html"><strong aria-hidden="true">2.1.</strong> Protocol</a></li><li class="chapter-item "><a href="lang/document.html"><strong aria-hidden="true">2.2.</strong> Document</a></li><li class="chapter-item "><a href="lang/nodes.html"><strong aria-hidden="true">2.3.</strong> Nodes</a></li><li class="chapter-item "><a href="lang/types.html"><strong aria-hidden="true">2.4.</strong> Types</a></li></ol></li><li class="chapter-item "><a href="document/index.html"><strong aria-hidden="true">3.</strong> Document Specification</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="document/protocol.html"><strong aria-hidden="true">3.1.</strong> Protocol</a></li><li class="chapter-item "><a href="document/graphs.html"><strong aria-hidden="true">3.2.</strong> Graphs</a></li><li class="chapter-item "><a href="document/editor.html"><strong aria-hidden="true">3.3.</strong> Editor</a></li></ol></li><li class="chapter-item "><a href="websocket/index.html"><strong aria-hidden="true">4.</strong> Language Server API</a></li><li class="chapter-item "><a href="api/index.html"><strong aria-hidden="true">5.</strong> Noodle API Specifications</a></li><li class="chapter-item "><a href="example.html"><strong aria-hidden="true">6.</strong> Example</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Noodle Visual Scripting Language</h1>
+
+                    <div class="right-buttons">
+                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>The Noodle Language is a visual programming language based on the findings of the paper <a href="introduction.html#">&quot;Investigation into the criteria of embeddability of visual scripting languages within the domain of game development.&quot;</a>. The main goal for this visual scripting implementation specification is it to provide a prototype for a visual scripting language that can embedded without much effort into an application. </p>
+<p>This collection of documents will discuss the core concepts of Noodle by following the result structure of the above mentioned paper. The paper found five major aspects that are potentially important when designing a language framework with embeddability in mind. The thesis defines them as follows: </p>
+<ol>
+<li>performance and the identified subcategories</li>
+<li>mechanical aspects of embedding software and their respective subcategories</li>
+<li>license</li>
+<li>documentation,</li>
+<li>tooling and workflow </li>
+</ol>
+<p>While we look into each of these aspects, we define what consequences it has for Noodle.</p>
+<blockquote>
+<p>This <strong>Chapter</strong> is basically a breakdown version of the mentioned paper <a href="introduction.html#">&quot;Investigation into the criteria of embeddability of visual scripting languages within the domain of game development.&quot;</a> as well as the accompanying industry article published on <a href="https://simonrenger.de/posts/">my blog</a>.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="general-design-overview"><a class="header" href="#general-design-overview">General design overview</a></h2>
+<p>Before we dive deep into these findings, the main characteristics of Noodle will be briefly described. Noodle will be diagram-based [1], [4] which means that the language is graph-based and the execution can be followed by traversing nodes. As my research shows, this is the most commonly used VSL form in game engines, e.g., in Unreal Engine, Unity and Godot [5]–[8]. A popular alternative is the block-based design. A block-based design is used for Scratch and Google’s Blockly [9]–[11] but it is not often used in games. Moreover, Noodle will offer pure nodes, nodes without side effects and nodes that may have side effects [12]. They are differently identified by either having an “execution” wire/connection or just a data flow connection. This allows the dialect designer to decide if they need support for one of these concepts or both, depending on the use case requirements. On its own, the language is not event-based, so a graph can be triggered at any node at any point in time by the runtime. However, the dialect designer can specify nodes that can be triggered. These nodes can be used as entry points which would allow an event-based structure if needed. All these decisions are based on what is common in tools used in the game industry, be it Godot’s visual scripting or Unreal Engine’s Material Editor [8], [13]–[17].</p>
+<p>Noodle’s design idea of being a composable language that one can shape depending on the users’ needs, or how literature would call it “extending” by being an extension language, is greatly inspired by the works of Hisham Muhammad and Roberto Ierusalimschy in their paper about the used API design of the <a href="https://www.lua.org/">Lua programming language</a> [18]–[21]. Since we are talking about a visual scripting language which logic is expressed in composing visual elements [22], we need some form of specification. In Noodle the dialect is described via a protocol: what nodes it supports, what kind of types are supported, etc. Moreover, Noodle supports internal modules, i.e., subgraphs that can help organizing your graph, as well as external modules, if a module resolve function is provided. If not, only internal modules will work. However, the defined protocol might differ from dialect to dialect, depending on the use of the language. We will talk about the protocol an its uses later.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="performance"><a class="header" href="#performance">Performance</a></h1>
+<p><em>Development performance</em></p>
+<p>One of the most important factors for the game industry is the ability to perform quick iteration cycles and to be able to quickly prototype a feature [23, pp. 956–957] [20], [24]. Many interviewees have expressed the opinion that script hot reloading is a crucial feature they would expect from a VSL. It has been shown also in literature [23] that script hot reloading is a great feature, that supports quick iteration and rapid prototyping. Based on these observations, Noodle will support script hot reloading to empower users with quick prototyping.</p>
+<p><em>Runtime performance</em></p>
+<p>When talking to any game programmer, they will most likely make a similar statement as many of the study participants, that memory is the number one bottleneck in games. Although, it greatly depends on the requirements of the game and how dramatic the runtime performance is influenced by the right memory access patterns or the right allocation strategies. Therefore, it is not surprising that most of the participants expressed their opinions on how memory management should work. The major conclusion is that in a VSL, we know from early on what kind of data we will handle since all inputs and outputs of all nodes are known at translation time, therefore the graph could either allocate a large chunk of memory and manage that like in <a href="https://www.fastly.com/blog/webassembly-memory-management-guide-for-c-rust-programmers">WebAssembly</a> where “...opcodes accessing memory are not given addresses, but offsets relative to the beginning of a linear memory segment whose size is always known.” The memory model of Noodle will follow the same mentality and will at the beginning allocate the needed memory through a memory allocator interface that the user can modify, if needed. If memory needs to be accessed in a form of a pointer, Noodle will not be able to do anything with these pointers, so it will just pass them down to native functions that are able to understand them.</p>
+<p>When it comes to a scripting language and a VSL, which is nothing else than a subcategory [1], [25], the execution method is important. Robert Nystrom states in both of his books “Crafting interpreters” and “Game programming patterns” [26, p. 17], [27, pp. 155–179] that a tree-walking interpreter, a form of an interpreter that traverses the graph by recursively calling the nodes, is slower than compiling the graph down to bytecode that is executed in a virtual machine (VM) or transpiled to a different source code [26, pp. 16–20], [28], [27, pp. 155–179] ,[23, pp. 52,954-958]. Based on these findings, Noodle will compile to bytecode with the intention that the user can compile a Noodle graph representation to C and compile to native code depending on their platform as a last shipping step (if providing a backend). This transpiling or compiling to native code has been mentioned in the interviews as an important feature. It can also be considered to allow the language to enable hot patching of the native generated code. This means that if something is wrong with the compiled C code, a content update of a bytecode compiled graph can be used to hot patch this part of the code.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mechanical-aspects-of-embedding-software"><a class="header" href="#mechanical-aspects-of-embedding-software">Mechanical aspects of embedding software</a></h1>
+<p><em>API design</em></p>
+<p>As described in the above-mentioned papers from H.Muhammad and R.Ierusalimschy about the API design of Lua and other scripting languages such as Perl or Python, it can be concluded that an API should be flexible to provide the ability to extend the underlaying language not in a verbose (like Perl) manner, but more in a concise declarative manner. This view is supported by the interviewees who describe that an API should be able to bind, for example, an external editor but should also be small enough to be easily manageable. Moreover, academia as well as the interviewed industry professionals argue that the API should be written in the C programming language or at least provide C foreign function interface, since C is considered as the lingua franca of programming languages [18]–[21]. To provide maximal portability from an API point of view, the header files of Noodle will be written in C99 and the implementation will be done in C11.</p>
+<p><em>Dependencies</em></p>
+<p>The game industry is notorious for reinventing the wheel [29], [30] and this problem might stem from the platforms we are catering to and the software we are working with. Therefore, having many dependencies that we need to maintain and maybe port to different platforms is not desired. This is what the research suggests and what an industry professional states in an interview: “When you develop a commercial product, you also need to consider two things. Since dependencies might be taken offline at any time, it is very important to have your own copy of them. Also, for various certification on platforms you need to keep in mind that they perform security audits on those dependencies.”. These insights led to the decision for Noodle to have no external dependencies besides the OS dependencies on the platforms it supports.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="license--documentation"><a class="header" href="#license--documentation">License &amp; Documentation</a></h1>
+<p>The game industry caters for many different platforms with different requirements, some are open source, some are not. Therefore, the license needs to be permissive since it is not always possible to open-source certain aspects of the entire codebase due to NDA regulations. This is the reason why Noodle will use the MIT license or the Apache License, Version 2.0, depending on the user’s need.</p>
+<p>Besides the license, a good documentation on how to embed the language into your game framework is needed. The research for the thesis <a href="article/license_documentation.html#">&quot;Investigation into the criteria of embeddability of visual scripting languages within the domain of game development.&quot;</a> has shown that it is expected by users for some form of online documentation and samples to exist. Therefore, Noodle has this page for documentation and help.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="workflow--tools"><a class="header" href="#workflow--tools">Workflow &amp; Tools</a></h1>
+<p>So far, none of the categories of embeddability are really different from what one would expect from a regular scripting language. In fact, what literature says is that they are nearly matching, and <a href="https://softwareengineering.stackexchange.com/questions/403911/what-makes-a-scripting-language-embeddable">Software Engineering Stack Exchange</a> confirms it. The major difference explained in literature by B.Myers already in 1989 in “Taxonomies of Visual Programming” [1] and in the works of Nystrom and J.Gregory [23], [27], the biggest challenge for a VSL is the UI/UX aspect and mainly the visual scripting environment (VSE). A VSE can be seen as the integrated development environment (IDE) for VSLs. The thesis concluded that among all aspects, workflow and tooling are the most important. </p>
+<p>Unfortunately, there is not much existing research on what qualifies a good visual scripting environment within the domain of game development. If we look outside of the game industry, there are a few papers on this topic, but they mostly describe the design of visual scripting environments for block-based languages, since they are mainly used for educational purposes. Although the industry professionals participating in the study shared some important insights, proper academic research would be needed to make academic claims. However, for this prototype the statements of industry professionals and the scarce UI / UX research on visual scripting environments will base the foundation for Noodle’s UI / UX. </p>
+<p>The industry professionals stated that one cannot just use Notepad or Visual Studio to edit the “source code” of a VSL, therefore they would expect either a fully-fletched editor to come with the VSL or a flexible API to allow them to bind an editor themselves. One of the participants stated that they would use the provided editor to get acquainted with the language and then use the API to build their own that matches the paradigms and needs of their own ecosystem. Hence, Noodle will come with a prototype of an editor and a flexible API that allows the user to bind a custom editor.</p>
+<p>For the first prototype, the language will come with a Visual Studio Code extension that enables the editor to understand Noodle files, while the editor will communicate with the Noodle runtime via the WebSocket API by using the protocol described later. Whenever a change occurs in the editor, the updated graph will be sent to the runtime and the runtime user can decide if it is needed to recompile the current graph and swap it with the new changes. The goal is to provide an embeddable editor view written in C or C++ as an external tool on top of the Noodle APIs.</p>
+<p>The mentioned WebSocket-based API allows network communication to other software that might be the editor. The VS Code extension will be part of the first prototype to demonstrate this communication feature. A network-based communication might be more suitable for games that separate game runtime and editor runtime, while the API communication via the C interface might be better suited for custom game engines that have a built-in editor. Important to mention is that the WebSocket API is purely optional.</p>
+<p>Since debugging and visualizing what is happening within the VSL has been classified as very important, Noodle should come with an ability to attach a debugger to it. In the first prototype we can try to make use of the VS Code Debugger framework and provide the ability to connect to it.</p>
+<p>A Noodle document will be in JSON format that can be parsed with any JSON parser and can be checked in source control like a normal text file. The main reason why JSON has been chosen is that it provides a better source control management support. Also, it can be diffed without big issues, while for example a binary file format would cause source control issues (google ‘Blueprints and source control’).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="protocol"><a class="header" href="#protocol">Protocol</a></h1>
+<p>As mentioned above, Noodle runs on a protocol that gives an overview of what nodes are available and what types can the runtime understand. This indicates that Noodle can be either statically or more dynamically typed, depending on the needs of the dialect designer. The Noodle protocol can be generated via the API and will return either a protocol struct that can be used via the C interface or a JSON representation that can be used otherwise in tools or in the WebSocket API. </p>
+<p>Besides the Noodle protocol that describes the language, there is the <em>noodle file</em> or <em>noodle document –</em> the script file. One can see the protocol like a header file in C or C++ and a noodle file as the source file. The noodle document describes the current file the VM is processing. As mentioned above, each noodle file may contain subgraphs (internal modules) or if enabled, external modules. In principle, every noodle document contains three regions: </p>
+<p><em><strong>Protocol</strong></em> – this region describes the meta data of the current language dialect. The VM will check this region and verify that the name of the dialect, as well as the version, are matching. If not, the file cannot be passed. Migration can be implemented with this approach.</p>
+<p><em><strong>Graph</strong></em> – this region describes the actual data of the graph, which includes the modules, nodes, connections, and the data. </p>
+<p><em><strong>Editor</strong></em> – implementation defined region that can be used to define editor specific data such as position of nodes, etc. This region is not used by the VM in any way.</p>
+<p>The <em>graph</em> region is the only region where the VM interpreter needs to understand the data of the file, while the <em>protocol</em> region is there to make sure that the noodle file matches this dialect.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="references"><a class="header" href="#references">References</a></h1>
+<p>[1]    B. A. Myers, “Taxonomies of Visual Programming,” 1989.</p>
+<p>[2]    M. F. Msiska and L. Van Zijl, “From visual scripting to Lua,” <em>ACM Int. Conf. Proceeding Ser.</em>, pp. 94–99, 2012, doi: 10.1145/2389836.2389848.</p>
+<p>[3]    M. M. Burnett, “Visual object-oriented programming,” <em>Proc. Conf. Object-Oriented Program. Syst. Lang. Appl. OOPSLA</em>, vol. Part F1296, no. April 1994, pp. 127–129, 1993, doi: 10.1145/260303.261240.</p>
+<p>[4]    M. M. Burnett and M. J. Baker, “A Classification System for Visual Programming Languages,” <em>J. Vis. Lang. Comput.</em>, vol. 5, no. 3, pp. 287–300, 1994, doi: https://doi.org/10.1006/jvlc.1994.1015.</p>
+<p>[5]    E. Games, “Blueprints,” 2021. https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/Blueprints/</p>
+<p>[6]    E. Games, “Kismet Visual Scripting.” https://docs.unrealengine.com/udk/Three/KismetHome.html</p>
+<p>[7]    Unity Technology, “Bolt Documentation.” https://docs.unity3d.com/bolt/1.4/manual/index.html</p>
+<p>[8]    G. Team, “Godot Visual Scripting.” https://docs.godotengine.org/en/stable/getting_started/scripting/visual_script/getting_started.html</p>
+<p>[9]    Google, “Blocky.” https://developers.google.com/blockly (accessed Apr. 14, 2022).</p>
+<p>[10]   J. Maloney, M. Resnick, N. Rusk, B. Silverman, and E. Eastmond, “The scratch programming language and environment,” <em>ACM Trans. Comput. Educ.</em>, vol. 10, no. 4, pp. 1–15, 2010, doi: 10.1145/1868358.1868363.</p>
+<p>[11]   MIT, “Scratch.” https://scratch.mit.edu/</p>
+<p>[12]   P. Wadler, “The essence of functional ( Invited programming talk ) recursive a compiler language,” <em>Proc. 19th ACM SIGPLANSIGACT Symp. Princ. Program. Lang.</em>, pp. 1–14, 1992.</p>
+<p>[13]   G. Team, “VisualShaders.” https://docs.godotengine.org/en/stable/tutorials/shading/visual_shaders.html</p>
+<p>[14]   “Unreal Engine 4 Material Editor.” https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/Materials/Editor/</p>
+<p>[15]   Unity Technology, “Shader Graph”, [Online]. Available: https://unity.com/shader-graph</p>
+<p>[16]   M. Autodesk, “Maya Node Editor.” [Online]. Available: https://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2019/ENU/Maya-Basics/files/GUID-23277302-6665-465F-8579-9BC734228F69-htm.html</p>
+<p>[17]   B. F. Blender 3D, “Shader Editor.” https://docs.blender.org/manual/en/latest/editors/shader_editor.html</p>
+<p>[18]   H. Muhammad and R. Ierusalimschy, “C APIs in extension and extensible languages,” <em>J. Univers. Comput. Sci.</em>, vol. 13, no. 6, pp. 839–853, 2007.</p>
+<p>[19]   H. H. Muhammad, “A study on scripting language APIs,” 2006.</p>
+<p>[20]   R. Ierusalimschy, L. H. De Figueiredo, and W. C. Filho, “SPE paper Lua – an extensible extension language,” vol. 6, no. 1996, pp. 635–652, 2015.</p>
+<p>[21]   R. Ierusalimschy, L. De Figueiredo, and W. Celes, “The evolution of an extension language: A history of Lua,” <em>Proc. V Brazilian Symp. Program. Lang.</em>, vol. 1, no. 1, pp. 1–16, 2001, [Online]. Available: http://www.lua.org/history.html%0Ahttp://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.15.9210&amp;rep=rep1&amp;type=pdf</p>
+<p>[22]   M. Idrees, F. Aslam, K. Shahzad, and S. M. Sarwar, “Towards a Universal Framework for Visual Programming Languages,” <em>Pak. J. Engg. Appl. Sci.</em>, vol. 23, no. July, pp. 55–65, 2018, [Online]. Available: https://www.researchgate.net/publication/328191862_Towards_a_Universal_Framework_for_Visual_Programming_Languages</p>
+<p>[23]   J. Gregory, <em>Game Engine Architecture, Second Edition</em>, 2nd ed. USA: A. K. Peters, Ltd., 2014.</p>
+<p>[24]   R. Ierusalimschy, L. H. de Figueiredo, and W. Celes, “Passing a Language through the Eye of a Needle,” <em>Queue</em>, vol. 9, no. 5, pp. 20–29, 2011, doi: 10.1145/1978862.1983083.</p>
+<p>[25]   J. K. Ousterhout, “Scripting: Higher-level programming for the 21st century,” <em>Computer (Long. Beach. Calif).</em>, vol. 31, no. 3, pp. 23–30, 1998, doi: 10.1109/2.660187.</p>
+<p>[26]   R. Nystrom, <em>Crafting Interpreters</em>, 1st ed. ‎ Genever Benning. [Online]. Available: https://www.craftinginterpreters.com/</p>
+<p>[27]   R. Nystrom, “Game Programming Patterns,” in <em>Game Programming Patterns</em>, Genever Benning, 2014. [Online]. Available: https://books.google.nl/books?id=AnvVrQEACAAJ</p>
+<p>[28]   R. Nystrom, “A Virtual Machine,” 2021. https://craftinginterpreters.com/a-virtual-machine.html</p>
+<p>[29]   J. G. Guerrero, “Reinventing the wheel,” 2014.</p>
+<p>[30]   C. O’Toole-Bateman, “The History of the Game Engine: Part 5 – Reinventing the Wheel.” https://ultimategamingparadise.com/features/series/history-of-the-game-engine/part-5-reinventing-the-wheel/</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="language-specification"><a class="header" href="#language-specification">Language Specification</a></h1>
+<p>The Noodle Language Specification defines the language dialect. A VM can usually only handle one dialect at the same time. The specification be retierved from the VM's API. The VM will provide a JSON document containing the language specification or a language specification structure in C. </p>
+<h2 id="language-specification-1"><a class="header" href="#language-specification-1">Language Specification</a></h2>
+<p>The JSON representation of the language dialect (noodle) can be used to communicate with the VM either via the WebSocekt API or via the general API. The difference lays that the general API structures are C structs modeled in a similar manner than the JSON structures. This allows that any extern editor that can parse a json file can understand the language dialect  and parse a <code>.noodle</code> file. This is demonstarted in the VS Code Extension.</p>
+<h2 id="how-will-the-json--be-generated"><a class="header" href="#how-will-the-json--be-generated">How will the JSON  be generated?</a></h2>
+<p>The JSON is generated via the API as mentioned above and reflects all registered nodes and data types to the VM. Also it will contain extra information about the current dialect. The C API can also read the protocol and configure itself based on this. <strong>Note</strong> that in this case native functions still need to be bound! </p>
+<h2 id="general-json-structure"><a class="header" href="#general-json-structure">General JSON structure</a></h2>
+<pre><code class="language-json">{
+    &quot;protocol&quot;: {
+    },
+    &quot;document&quot;: {
+    },
+    &quot;types&quot;: [
+    ],
+    &quot;nodes&quot;: [
+    ]
+}
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>protocol</td><td>Object</td><td>Contains the description of the protocol being use. Can be used to validate if the current file matches the currently used VM or Language file.</td></tr>
+<tr><td>document</td><td>Object</td><td>Defines the document structure.</td></tr>
+<tr><td>types</td><td>Array<Object></td><td>List of possible types a node can refer to and the VM knows about. Will always contain the basic primitive types.</td></tr>
+<tr><td>nodes</td><td>Array<Object></td><td>List of nodes the language understands</td></tr>
+</tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="protocol-1"><a class="header" href="#protocol-1">Protocol</a></h1>
+<p>Contains the description of the protocol being use. Can be used to validate if the current file matches the currently used VM or Language file. Every VM can typicaly only handle one protocol at the same time. </p>
+<pre><code class="language-json">{
+    &quot;protocol&quot;: {
+        &quot;version&quot;: &quot;0.0.1&quot;,
+        &quot;lang&quot;: &quot;noodle&quot;
+    },
+    // ...
+}
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>version</td><td>string</td><td>Version of the language that is used in the <code>graph</code> section. This is used by the VM to validate the VM's Version with this files version.</td></tr>
+<tr><td>lang</td><td>string</td><td>Identifier for the language that is used in the <code>graph</code> section. This is used by the VM to checked if the VM language is not equal the VM will cause a error.</td></tr>
+</tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="document"><a class="header" href="#document">Document</a></h1>
+<p>Can be used a &quot;untitled&quot; document in a <em>VSE/VPE</em> such as in our example VS Code Extension Editor.</p>
+<pre><code class="language-json">    &quot;document&quot;: {
+        &quot;protocol&quot;: {
+            &quot;version&quot;: &quot;0.0.1&quot;,
+            &quot;lang&quot;: &quot;noodle&quot;
+        },
+        &quot;graphs&quot;:[],
+        &quot;editors&quot;: []
+    },
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>protocol</td><td>Object</td><td>Contains the description of the protocol being use. Can be used to validate if the current file matches the currently used VM or Language file. Should be the same as in the top level protocol</td></tr>
+<tr><td>graphs</td><td>Array<Object></td><td>Defines an array of Graph Elements that represent the actual data used by the VM</td></tr>
+<tr><td>editors</td><td>Array<Object></td><td>Implementation defined by the Editor. This can be data used by the editor. The VM will ignore anything in this section. The index of a entry here needs to be aligned with the Graphs.</td></tr>
+</tbody></table>
+<p>For more information on the Document and how the graphs are structured please check later <code>Document Specification</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="nodes"><a class="header" href="#nodes">Nodes</a></h1>
+<p>Bare bone description of the nodes. This can be used by a <em>VSE/VEP</em> to parse the <code>.graph</code> fields. All graphs are composed out of these nodes.</p>
+<pre><code class="language-json"> {
+ &quot;name&quot;: &quot;Number&quot;,
+ &quot;uuid&quot;: &quot;123e4567-e89b-12d3-a456-426614174000&quot;,
+ &quot;input&quot;: [],
+ &quot;output&quot;: []
+},
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>name</td><td>string</td><td>Name of node</td></tr>
+<tr><td>uuid</td><td>string</td><td>Universally Unique Identifier</td></tr>
+<tr><td>input</td><td>Array<Object></td><td>List of Inputs</td></tr>
+</tbody></table>
+<h2 id="details-inputoutput"><a class="header" href="#details-inputoutput"><strong>Details: <code>input/output</code></strong></a></h2>
+<pre><code class="language-json">{
+&quot;name&quot;: &quot;num&quot;,
+&quot;pretty_name&quot;: &quot;Number&quot;,
+&quot;type&quot;: &quot;number&quot;,
+&quot;control&quot;: {},
+&quot;read_only&quot;: false,
+&quot;default_value&quot;: null,
+&quot;ref&quot;: false
+}
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>name</td><td>string</td><td>Name of Input/Output</td></tr>
+<tr><td>pretty_name</td><td>string</td><td>Display Name</td></tr>
+<tr><td>type</td><td>string</td><td>Valid type name of <code>.types</code> array</td></tr>
+<tr><td>control</td><td>object</td><td>Describes the Input/Outputs control: e.g. Input Text box <em>(Just a suggestion)</em></td></tr>
+<tr><td>read_only</td><td>boolean</td><td>Is this input/output a read only type? <em>(subject to change: e.g. const)</em></td></tr>
+<tr><td>default_value</td><td>any</td><td>Default Value: `boolean</td></tr>
+<tr><td>ref</td><td>boolean</td><td>Is this value a reference <em>(subject to change)</em></td></tr>
+</tbody></table>
+<blockquote>
+<p>Reference type is only supported if the VM settings allow this. Also <code>read_only</code> might be implcit and one needs to specifically state that a input/output can be written to. This will be subject to change and only avalilbe for reference types since all wires are in general const and not mutable.</p>
+</blockquote>
+<h2 id="control-specifications"><a class="header" href="#control-specifications">Control Specifications</a></h2>
+<p>Can be ignored by the editor since the editor is implementation defined. This is just a method for the VM to provide suggestions or extra information.</p>
+<h3 id="general-overview"><a class="header" href="#general-overview"><strong>General Overview</strong></a></h3>
+<pre><code class="language-json">{
+    &quot;type&quot;: &quot;select&quot;,
+    &quot;items&quot;: [
+        &quot;a&quot;,&quot;b&quot;
+    ],
+    &quot;options&quot;: [
+        1,2
+    ]
+}
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>type</td><td>string</td><td>Type name of the control. The VM comes with build in: <code>number</code>,<code>text</code>,<code>checkbox</code>,<code>select</code>,<code>color</code>,<code>vec2-4</code>,<code>mat4</code></td></tr>
+<tr><td>items</td><td>Array<any></td><td>Implementation defined</td></tr>
+<tr><td>options</td><td>Array<any></td><td>Implementation defined</td></tr>
+</tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="types"><a class="header" href="#types">Types</a></h1>
+<p>These are the identifications of the supported data types. In its default configuration the VM understands:</p>
+<ul>
+<li><code>number</code>  - a float 64 value (<code>double</code>)</li>
+<li><code>boolean</code> -  <code>true</code> / <code>false</code> </li>
+<li><code>string</code> - Its basically a <code>const char*</code> &amp; <code>uint32_t</code> size and <code>uint32_t</code> end of line flag and owned by the VM</li>
+</ul>
+<pre><code class="language-json">    &quot;types&quot;: [
+        {
+            &quot;name&quot;: &quot;number&quot;,
+            &quot;compatible&quot;: []
+        }
+    ],
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>name</td><td>string</td><td>Name of the type (lower letters)</td></tr>
+<tr><td>compatible</td><td>Array<string></td><td>List of names of types this type is compatible with. (Implicit castable)</td></tr>
+</tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="document-specification"><a class="header" href="#document-specification">Document Specification</a></h1>
+<p>A Noodle file is a file with the file ending: <code>.noodle</code> and follows the same structure as defined in the Noodle Language Specifications.</p>
+<h3 id="general-overview-1"><a class="header" href="#general-overview-1"><strong>General Overview</strong></a></h3>
+<pre><code class="language-json">{
+    &quot;protocol&quot;: {},
+    &quot;graphs&quot;: [],
+    &quot;editors&quot;: []
+}
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>protocol</td><td>Object</td><td>Contains the description of the protocol being use. Can be used to validate if the current file matches the currently used VM or Language file.</td></tr>
+<tr><td>graphs</td><td>Array<Object></td><td>Defines an array of Graph Elements that represent the actual data used by the VM</td></tr>
+<tr><td>editors</td><td>Array<Object></td><td>Implementation defined by the Editor. This can be data used by the editor. The VM will ignore anything in this section. The index of a entry here needs to be aligned with the Graphs</td></tr>
+</tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="protocol-2"><a class="header" href="#protocol-2">Protocol</a></h1>
+<p>Contains the description of the protocol being use. Can be used to validate if the current file matches the currently used VM or Language file. Every VM can typicaly only handle one protocol at the same time. </p>
+<pre><code class="language-json">{
+    &quot;protocol&quot;: {
+        &quot;version&quot;: &quot;0.0.1&quot;,
+        &quot;lang&quot;: &quot;noodle&quot;
+    },
+    // ...
+}
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>version</td><td>string</td><td>Version of the language that is used in the <code>graph</code> section. This is used by the VM to validate the VM's Version with this files version.</td></tr>
+<tr><td>lang</td><td>string</td><td>Identifier for the language that is used in the <code>graph</code> section. This is used by the VM to checked if the VM language is not equal the VM will cause a error.</td></tr>
+</tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="graphs"><a class="header" href="#graphs">Graphs</a></h1>
+<pre><code class="language-json">{
+    &quot;protocol&quot;: {
+        &quot;version&quot;: &quot;0.0.1&quot;,
+        &quot;lang&quot;: &quot;noodle&quot;
+    },
+    &quot;graphs&quot;: [ ],
+    &quot;editors&quot;: []
+}
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>graphs</td><td>Array<Object></td><td>An array of <code>graph</code> objects</td></tr>
+</tbody></table>
+<h2 id="details-graphs-object"><a class="header" href="#details-graphs-object">Details <code>graphs object</code></a></h2>
+<pre><code class="language-json">{
+    &quot;protocol&quot;: {
+        &quot;version&quot;: &quot;0.0.1&quot;,
+        &quot;lang&quot;: &quot;noodle&quot;
+    },
+        &quot;graphs&quot;: [
+            {
+                &quot;name&quot;: &quot;Main&quot;,
+                &quot;graph&quot;: {
+                    &quot;nodes&quot;: [],
+                    &quot;connections&quot;: [],
+                    &quot;data&quot;: [],                    
+                }
+            }
+        ],
+    &quot;editors&quot;: []
+}
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>name</td><td>string</td><td>name of the graph.</td></tr>
+<tr><td>graph</td><td>Object</td><td>Actual data used for the VM</td></tr>
+</tbody></table>
+<h3 id="details-graph"><a class="header" href="#details-graph">Details <code>graph</code></a></h3>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>nodes</td><td>Array<Object></td><td>List of Nodes defining the graph.</td></tr>
+<tr><td>connections</td><td>Array&lt;Array<Object>&gt;</td><td>List of connections used by the graph's nodes. If no connection is given the array is empty.</td></tr>
+<tr><td>data</td><td>Array<Object></td><td>List of data used by the graph's nodes. If no data is given the object is empty.</td></tr>
+</tbody></table>
+<h3 id="details-node"><a class="header" href="#details-node"><strong>Details: <code>node</code></strong></a></h3>
+<pre><code class="language-json">            {
+                &quot;name&quot;: &quot;Number&quot;,
+                &quot;node&quot;:&quot;123e4567-e89b-12d3-a456-426614174000&quot;,
+                &quot;id&quot;: 1
+            }
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>name</td><td>string</td><td>Name of the Node</td></tr>
+<tr><td>id</td><td>number/string</td><td>Unique ID of the node.</td></tr>
+<tr><td>node</td><td>string</td><td>Unique ID of the node.</td></tr>
+</tbody></table>
+<h3 id="details-connections"><a class="header" href="#details-connections"><strong>Details: <code>connections</code></strong></a></h3>
+<pre><code class="language-json">&quot;connections&quot;: [
+            [],
+            [],
+            [
+                {
+                    &quot;type&quot;: &quot;output&quot;,
+                    &quot;name&quot;: &quot;res&quot;,                    
+                    &quot;extern&quot;: &quot;b&quot;,
+                    &quot;node&quot;: 5                
+                }
+            ],
+    ]
+</code></pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>type</td><td>string</td><td>Type of the connection: <code>input</code> or <code>output</code></td></tr>
+<tr><td>name</td><td>string</td><td>Name of the input|output on the current node</td></tr>
+<tr><td>extern</td><td>string</td><td>The name of the extern connector.</td></tr>
+<tr><td>node</td><td>number</td><td>The id of the extern node.</td></tr>
+</tbody></table>
+<h3 id="details-data"><a class="header" href="#details-data"><strong>Details: <code>data</code></strong></a></h3>
+<pre><code class="language-json">&quot;data&quot;: [
+    {},
+    {	&quot;num&quot;:{
+        	&quot;type&quot;: &quot;number&quot;,
+	        &quot;value&quot;: &quot;1&quot;
+    	}
+    }
+    ]
+</code></pre>
+<p>The data object itself is structured in a way that the Connector name is the name of the object key.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="editor"><a class="header" href="#editor">Editor</a></h1>
+<p>The editor field is implementation defined for the specific Graph Editor. This can be anything the Visual Scripting/Programming Environment (<em>VSE/VPE</em>) needs to display and allow editing the graph.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="language-server-api"><a class="header" href="#language-server-api">Language Server API</a></h1>
+<p>The Language Server API provides a WebSocket API the end user can connect to. The WebSocket API allows a bidirectional communication which can be seen as a favourable model over a REST API.</p>
+<h2 id="client-requests"><a class="header" href="#client-requests">Client Requests</a></h2>
+<p>The Language Server (LS) will operate on a specific port (specified in the configuration of the server) and allows N clients to connect. When a client connected the client has the possibility to request certain information from the Language Server:</p>
+<table><thead><tr><th>Request</th><th>Content Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>/request_protocol</code></td><td>text/json</td><td>This will return the language protocol (Noodle Language Specification)</td></tr>
+</tbody></table>
+<h2 id="client-events"><a class="header" href="#client-events">Client Events</a></h2>
+<p>The Client can send the following events to the LS:</p>
+<table><thead><tr><th>Client Events</th><th>Content Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>/document_changed</code></td><td>text/json</td><td>This tells the server that the document has changed. The body contains the changed document. The reaction of this message is implementation defined.</td></tr>
+</tbody></table>
+<h2 id="server-events"><a class="header" href="#server-events">Server Events</a></h2>
+<p>The LS can update the client with:</p>
+<table><thead><tr><th>LS Update</th><th>Content Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>/protocol_changed</code></td><td>text/json</td><td>This tells the client the protocol has changed. The new protocol will be in the body.  (Noodle Language Specification)</td></tr>
+<tr><td><code>/error</code></td><td>text/json</td><td>This will return a error object that describes in its <code>type</code> field what kind of error and the error message can be accessed in the <code>message.</code></td></tr>
+<tr><td><code>/runs</code></td><td>text/json</td><td><strong>Optional</strong>.  It existences is implementation defined. This can be used to signal the client that the X files are in simulations. Could be used to implement hot reload / live changes together with <code>/document_changed</code>.</td></tr>
+</tbody></table>
+<h2 id="example-communication"><a class="header" href="#example-communication">Example Communication</a></h2>
+<p>The user changes a graph and sends <code>/document_changed</code> to the server the server will apply the changes to the VM. The server will return the validation results via <code>/error</code> if there has been a error otherwiese nothing will be send to the user.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="noodle-api-specifications"><a class="header" href="#noodle-api-specifications">Noodle API Specifications</a></h1>
+<p>Noodles API is written in the C programming language since C is considered as the lingua franca of programming languages [18]–[21]. To provide maximal portability from an API point of view, the header files of Noodle will be written in C99 and the implementation will be done in C11.</p>
+<h2 id="including"><a class="header" href="#including">Including</a></h2>
+<p>There are two ways to get the Noodle embedded into your program:</p>
+<ol>
+<li>Link the statically build library or the dyanmically library.</li>
+<li>You can include the noodle source code as part of your application.</li>
+</ol>
+<p>However you choose to embedd noodle, you also want to add <code>src/include</code> to your include path to be able to include the <code>noodle.h</code> file.</p>
+<p>Noodle depends only on the C standard library, so you don’t usually need to link to anything else. Be aware that this is a subject to change and maybe we offer a customization point to get ride of these dependencies as well.</p>
+<p>If your program is in C++ but its linking to the noodle library compiled as C you need to include the following header file:</p>
+<pre><code class="language-c">#include &quot;noodle.hpp&quot;
+</code></pre>
+<h2 id="initilization"><a class="header" href="#initilization">Initilization</a></h2>
+<blockquote>
+<p>This will be added soon</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="example"><a class="header" href="#example">Example</a></h1>
+<blockquote>
+<p>The Visual Studio Code Example</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+                        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+                
+    </body>
+</html>
