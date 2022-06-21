@@ -1,0 +1,9 @@
+# Mechanical aspects of embedding software
+
+*API design*
+
+As described in the above-mentioned papers from H.Muhammad and R.Ierusalimschy about the API design of Lua and other scripting languages such as Perl or Python, it can be concluded that an API should be flexible to provide the ability to extend the underlaying language not in a verbose (like Perl) manner, but more in a concise declarative manner. This view is supported by the interviewees who describe that an API should be able to bind, for example, an external editor but should also be small enough to be easily manageable. Moreover, academia as well as the interviewed industry professionals argue that the API should be written in the C programming language or at least provide C foreign function interface, since C is considered as the lingua franca of programming languages [18]–[21]. To provide maximal portability from an API point of view, the header files of Noodle will be written in C99 and the implementation will be done in C11.
+
+*Dependencies*
+
+The game industry is notorious for reinventing the wheel [29], [30] and this problem might stem from the platforms we are catering to and the software we are working with. Therefore, having many dependencies that we need to maintain and maybe port to different platforms is not desired. This is what the research suggests and what an industry professional states in an interview: “When you develop a commercial product, you also need to consider two things. Since dependencies might be taken offline at any time, it is very important to have your own copy of them. Also, for various certification on platforms you need to keep in mind that they perform security audits on those dependencies.”. These insights led to the decision for Noodle to have no external dependencies besides the OS dependencies on the platforms it supports.
