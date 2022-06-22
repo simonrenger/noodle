@@ -5,5 +5,8 @@ multilingual = false
 src = "src"
 title = "Noodle Visual Scripting Language"
 
+[output.html]
+git-repository-url = "https://github.com/simonrenger/noodle"
+
 [output.html.fold]
 enable = true
